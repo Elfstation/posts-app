@@ -1,0 +1,27 @@
+version: "3.4"
+
+services:
+  postsapp:
+    image: postsapp
+    container_name: postsapp
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+    ports:
+      - 9999:9999
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+  mongodb:
+    image: mongo:5.0.6
+    container_name: postsapp_db
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data/db
+
+volumes:
+  data:
